@@ -5,15 +5,15 @@ const rateLimiter = rateLimit({
   limit: 200,
   standardHeaders: "draft-8",
   legacyHeaders: false,
-  message: {
-    success: false,
-    message: "Too many requests. Please try again later",
-  },
+  skipSuccessfulRequests: false,
+  skipFailedRequests: false,
   handler: (req, res, _next, options) => {
-    req.statusCode(options.statusCode).json({
+    console.log(req.rateLimit);
+
+    res.status(options.statusCode).json({
       success: false,
-      message: "Too many requests. Please try again later",
-      retryAfter: "15 minutes",
+      message: options.message,
+      retryAfter: req.rateLimit?.resetTime?.toISOString(),
     });
   },
 });
