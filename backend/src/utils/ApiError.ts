@@ -1,6 +1,6 @@
 class ApiError extends Error {
   public readonly statusCode: number;
-  public readonly sucess: boolean;
+  public readonly success: boolean;
   public readonly errors: unknown[];
   public readonly data: null;
 
@@ -13,7 +13,7 @@ class ApiError extends Error {
     super(message);
 
     this.statusCode = statusCode;
-    this.sucess = false;
+    this.success = false;
     this.errors = errors;
     this.data = null;
 
